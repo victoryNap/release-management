@@ -59,6 +59,16 @@ RM_ERR_INVOCATION=1
 RM_ERR_VERSIONS=2
 RM_ERR_GIT_STATE=3
 
+realpath() {
+  local dir=
+  if [ -d "$1" ]; then
+    dir="$(cd "$1" && pwd)"
+  else # assume file
+    dir="$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
+  fi
+  echo -n "$dir"
+}
+
 THIS_ABSPATH="$(realpath "$0")"
 
 verbose() {
@@ -535,7 +545,7 @@ while [ $# -gt 0 ]; do
     shift
     RM_TECH="$RM_TECH,helm"
     ;;
-  --helm-chart-file) # deprecated because filename "Chart.yaml" is not configurable in node.js
+  --helm-chart-file) # deprecated because filename "Chart.yaml" is not configurable in Helm
     shift
     RM_HELM_CHART_FILE="$1"
     shift
@@ -605,6 +615,16 @@ while [ $# -gt 0 ]; do
     RM_PATHNAMES_version=":$RM_PATHNAMES_version:$1:"
     shift
     RM_TECH="$RM_TECH,version"
+    ;;
+  --git-commit-opts)
+    shift
+    RM_GIT_COMMIT_OPTS="$1"
+    shift
+    ;;
+  --git-push-opts)
+    shift
+    RM_GIT_PUSH_OPTS="$1"
+    shift
     ;;
   --help | -h)
     usage >&2

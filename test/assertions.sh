@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 set -e
 
+realpath() {
+  local dir=
+  if [ -d "$1" ]; then
+    dir="$(cd "$1" && pwd)"
+  else # assume file
+    dir="$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
+  fi
+  echo -n "$dir"
+}
+
 export MATCH="docker run --rm -i matthewadams12/match"
 export YMLX="docker run --rm -i matthewadams12/ymlx"
 export XMLSTARLET="docker run --rm -i jakubsacha/docker-xmlstarlet"
