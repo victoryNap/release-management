@@ -211,7 +211,6 @@ Make sure you review the output of `./release.sh --help`.
 
 * This project Eats Its Own Dog Food™. It uses a plain text `VERSION` file to store its version. Use the
   script `./release`. It uses the preset `--dev-qa` as of this writing.
-* `release.sh` implements the release workflow, but needs `getVersion_xxx` & `setVersion_xxx` functions for eah
   particular technology. They are all located in the `release.sh` file.
 * In order to prevent a conflict with this repo's `release.sh` file, the `release` script downloads `release.sh`
   as `release.sh.this`.
